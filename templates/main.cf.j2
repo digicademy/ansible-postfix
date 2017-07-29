@@ -1,0 +1,39 @@
+# See /usr/share/postfix/main.cf.dist for a commented, more complete version
+
+# Debian specific:  Specifying a file name will cause the first
+# line of that file to be used as the name.  The Debian default
+# is /etc/mailname.
+myorigin = {{ postfix_myorigin }}
+
+smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
+biff = {{ postfix_biff }}
+
+# appending .domain is the MUA's job.
+append_dot_mydomain = {{ postfix_append_dot_mydomain }}
+
+# Uncomment the next line to generate "delayed mail" warnings
+{% if postfix_delay_warning_time %}delay_warning_time = {{ postfix_delay_warning_time }}{% endif %}
+
+readme_directory = {{ postfix_readme_directory }}
+
+# TLS parameters
+smtpd_use_tls = {{ postfix_smtpd_use_tls }}
+smtpd_tls_cert_file = {{ postfix_smtpd_tls_cert_file }}
+smtpd_tls_key_file = {{ postfix_smtpd_tls_key_file }}
+smtpd_tls_session_cache_database = {{ postfix_smtpd_tls_session_cache_database }}
+smtp_tls_session_cache_database = {{ postfix_smtp_tls_session_cache_database }}
+
+# See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
+# information on enabling SSL in the smtp client.
+
+myhostname = {{ postfix_hostname }}
+alias_maps = {{ postfix_alias_maps }}
+alias_database = {{ postfix_alias_database }}
+mydestination = {{ postfix_hostname }},{% if postfix_domain %}localhost.{{ postfix_domain }},{% endif %}localhost
+relayhost = {{ postfix_relayhost }}
+mynetworks = {{ postfix_mynetworks }}
+mailbox_command = {{ postfix_mailbox_command }}
+mailbox_size_limit = {{ postfix_mailbox_size_limit }}
+recipient_delimiter = {{ postfix_recipient_delimiter }}
+inet_interfaces = {{ postfix_inet_interfaces }}
+inet_protocols = {{ postfix_inet_protocols }}
