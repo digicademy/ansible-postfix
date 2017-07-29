@@ -12,7 +12,7 @@ biff = {{ postfix_biff }}
 append_dot_mydomain = {{ postfix_append_dot_mydomain }}
 
 # Uncomment the next line to generate "delayed mail" warnings
-{% if postfix_delay_warning_time %}delay_warning_time = {{ postfix_delay_warning_time }}{% endif %}
+{% if postfix_delay_warning_time is defined %}delay_warning_time = {{ postfix_delay_warning_time }}{% endif %}
 
 readme_directory = {{ postfix_readme_directory }}
 
